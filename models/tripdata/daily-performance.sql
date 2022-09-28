@@ -6,8 +6,7 @@ with daily_performance as (select  DATE(lpep_pickup_datetime)  AS date,
         round(avg(passenger_count),2) as average_passenger,
         round(sum (total_amount),2) as total_amount,
         round(avg(total_amount),2) as average_amount
-from {{ref('source-table')}}
-where passenger_count >=1 and EXTRACT(YEAR FROM DATE(lpep_pickup_datetime))>= 2021
+from {{ref('performance')}}
 group by date
 order by date asc)
 select * from daily_performance

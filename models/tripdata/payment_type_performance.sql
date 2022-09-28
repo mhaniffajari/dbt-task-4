@@ -6,8 +6,7 @@ with payment_type_performance as (select  payment_type,
         round(avg(passenger_count),2) as average_passenger,
         round(sum (total_amount),2) as total_amount,
         round(avg(total_amount),2) as average_amount
-from {{ref('source-table')}}
-where passenger_count >=1 and EXTRACT(YEAR FROM DATE(lpep_pickup_datetime))>= 2021
+from {{ref('performance')}}
 group by payment_type
 order by payment_type asc)
 select * from payment_type_performance
